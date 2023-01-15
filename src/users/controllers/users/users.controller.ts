@@ -1,6 +1,5 @@
 import { UpdateUserDto } from './../../dtos/UpdateUser.dto';
-
-import { Put, UseGuards, ValidationPipe,} from '@nestjs/common';
+import { Delete, Put, UseGuards, ValidationPipe,} from '@nestjs/common';
 import { UsePipes } from '@nestjs/common';
 import { ParseIntPipe } from '@nestjs/common';
 import { ParseBoolPipe } from '@nestjs/common';
@@ -66,10 +65,17 @@ export class UsersController {
 
     @Put(':id')
     async updateuserById(@Param('id', ParseIntPipe) id:number, @Body() UpdateUserDto:UpdateUserDto,  @Req() req:Request, @Res() res:Response){
-      const updateuser= await this.userService.UpdateUser(id, UpdateUserDto)
-      res.send({updateuser})
+      await this.userService.UpdateUser(id, UpdateUserDto)
+      res.send("user updated")
       
 
+    }
+
+    @Delete(':id')
+   async deleteuserByid(@Param('id', ParseIntPipe) id:number,  @Req() req:Request, @Res() res:Response){
+        const deleteuser = await this.userService.deleteUser(id)
+        res.send("user deleted")
+        
     }
     
     
