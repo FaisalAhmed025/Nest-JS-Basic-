@@ -1,9 +1,10 @@
+import { UpdateUserDto } from './../../dtos/UpdateUser.dto';
 
-import { UseGuards, ValidationPipe } from '@nestjs/common';
+import { Put, UseGuards, ValidationPipe,} from '@nestjs/common';
 import { UsePipes } from '@nestjs/common';
 import { ParseIntPipe } from '@nestjs/common';
 import { ParseBoolPipe } from '@nestjs/common';
-import { Controller, Get,Query, Post, Req, Res,Body, Param} from '@nestjs/common';
+import { Controller, Get,Query, Post, Req, Res,Body, Param, Patch} from '@nestjs/common';
 import { HttpStatus } from '@nestjs/common/enums';
 import { HttpException } from '@nestjs/common/exceptions';
 import express, { Request, Response } from "express";
@@ -41,7 +42,9 @@ export class UsersController {
         ]
         }]
     }
-    @Post('createuser')
+
+
+    @Post('create')
     @UsePipes(new ValidationPipe())
     createUser(@Body(ValidateCreateuserPipe ) userData:createUserDto , @Req() req:Request, @Res() res:Response){
         console.log((userData.age.toPrecision()));
@@ -60,6 +63,15 @@ export class UsersController {
         }
         res.send(user)
     }
+
+    @Put(':id')
+    async updateuserById(@Param('id', ParseIntPipe) id:number, @Body() UpdateUserDto:UpdateUserDto,  @Req() req:Request, @Res() res:Response){
+      const updateuser= await this.userService.UpdateUser(id, UpdateUserDto)
+      res.send({updateuser})
+      
+
+    }
+    
     
 }
 

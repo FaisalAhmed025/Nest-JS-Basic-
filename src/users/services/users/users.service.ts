@@ -1,8 +1,17 @@
+import { UpdateUserparams } from './../../utils/types';
+import { UpdateUserDto } from './../../dtos/UpdateUser.dto';
+import { User } from './../../../typeorm/entities/User';
 import { Injectable } from '@nestjs/common';
-import { createUSerType } from 'src/users/utils/types';
+import { InjectRepository } from '@nestjs/typeorm';
+import { createUserParams } from 'src/users/utils/types';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
+
+    constructor(@InjectRepository(User) private userRepository: Repository<User>) {
+        
+    }
     private fakeuser= [
         {
             username: "Anson",
@@ -18,18 +27,24 @@ export class UsersService {
         }
         ] 
     fetchUser(){
-    return this.fakeuser;
+       const users = this.userRepository.find()
+       return users;
     }
 
-    createUser(userdetails:createUSerType){
-        this.fakeuser.push(userdetails)
-        return;
+    createUser(userdetails:createUserParams){
+        const newUser =this.userRepository.create({...userdetails, createdAt:new Date()});
+        const user =this.userRepository.save(newUser)
+        return user;
 
     }
 
     fetchuserByid(id:Number){
         return {id, username:"Ansio",email: "Aniso@gmail.com"};
 
+    } 
+
+    UpdateUser(id:number,updateuserdetails:UpdateUserparams){
+         this.userRepository.update({id}, {...updateuserdetails})
     }
     
 

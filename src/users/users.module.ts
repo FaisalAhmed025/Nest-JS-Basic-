@@ -1,3 +1,5 @@
+import { User } from './../typeorm/entities/User';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { UsersController } from './controllers/users/users.controller';
 import { AnotherMiddleware } from './middlewares/another/another.middleware';
@@ -5,6 +7,7 @@ import { ExampleMiddleware } from './middlewares/example/example.middleware';
 import { UsersService } from './services/users/users.service';
 
 @Module({
+  imports:[TypeOrmModule.forFeature([User])],
   controllers: [UsersController],
   providers: [UsersService]
 })
