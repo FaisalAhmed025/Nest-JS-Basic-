@@ -12,6 +12,7 @@ import { createUserDto } from 'src/users/dtos/createUSer.dto';
 import { AuthGuard } from 'src/users/guards/auth/auth.guard';
 import { ValidateCreateuserPipe } from 'src/users/pipes/validate-createuser/validate-createuser.pipe';
 import { UsersService } from 'src/users/services/users/users.service';
+import { CreateUserProfileDto } from 'src/users/dtos/CreateUserProfile.dto';
 
 @Controller('users')
 export class UsersController {
@@ -77,6 +78,13 @@ export class UsersController {
         res.send("user deleted")
         
     }
+
+    @Post(':id/profile')
+    createuserprofile(
+        @Param('id', ParseIntPipe) id:number,
+        @Body() creatuserprfole:CreateUserProfileDto){
+            
+        }
     
     
 }

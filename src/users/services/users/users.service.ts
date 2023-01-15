@@ -1,7 +1,8 @@
-import { UpdateUserparams } from './../../utils/types';
+import { CreateUserProfileDto } from './../../dtos/CreateUserProfile.dto';
+import { CreateUserProfileparams, UpdateUserparams } from './../../utils/types';
 import { UpdateUserDto } from './../../dtos/UpdateUser.dto';
 import { User } from './../../../typeorm/entities/User';
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { createUserParams } from 'src/users/utils/types';
 import { Repository } from 'typeorm';
@@ -50,6 +51,15 @@ export class UsersService {
     deleteUser(id:number){
         return this.userRepository.delete({id});
         
+    }
+
+   async createuserprofile(id:number, createuserprofiledetails:CreateUserProfileparams){
+
+        const user = await this.userRepository.findOneBy({id})
+        if(!user){
+            throw new HttpException("user not found" , HttpStatus.BAD_REQUEST)
+        }
+
     }
 
 }

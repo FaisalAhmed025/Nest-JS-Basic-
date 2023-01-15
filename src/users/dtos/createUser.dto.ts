@@ -15,7 +15,7 @@ export class  createUserDto{
     confirmPassword: string;
     
     @IsNotEmpty()
-    @IsNumber()
+    @IsNumber()  
     age:number;
     
 }

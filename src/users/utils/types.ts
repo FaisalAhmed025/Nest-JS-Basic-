@@ -6,9 +6,18 @@ export type createUserParams = {
 
 };
 
-export class UpdateUserparams {
+export type  UpdateUserparams ={
     username:string
     password:string
     email:string
     
-}
+};
+
+export type CreateUserProfileparams={
+
+    firstName:string
+    lastName:string
+    age:number
+    dob:string
+
+};

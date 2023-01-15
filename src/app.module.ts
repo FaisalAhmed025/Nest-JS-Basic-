@@ -1,3 +1,4 @@
+import { Profile } from './typeorm/entities/profile';
 import { User } from './typeorm/entities/User';
 import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
@@ -13,7 +14,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'root',
       password: '',
       database: 'b2b',
-      entities: [User],
+      entities: [User, Profile],
       synchronize:true
     }),
   ],
